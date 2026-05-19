@@ -215,7 +215,6 @@
             transform: none;
         }
 
-        /* Manual matchmaking button */
         .matchmaking-btn {
             display: inline-flex;
             align-items: center;
@@ -248,7 +247,6 @@
             transform: scale(0.96);
         }
 
-        /* Prediction Animation Overlay */
         .prediction-overlay {
             display: none;
             position: fixed;
@@ -321,7 +319,6 @@
             100% { transform: translateY(-20px); opacity: 1; }
         }
 
-        /* Result Card */
         .result-card {
             display: none;
             background: rgba(20, 5, 15, 0.95);
@@ -394,7 +391,6 @@
             margin-bottom: 1rem;
         }
 
-        /* Compatibility percentages for each letter */
         .compatibility-row {
             display: flex;
             flex-direction: column;
@@ -619,7 +615,6 @@
         <a href="gift.html" class="back-link">← Back to Gift</a>
     </main>
 
-    <!-- Prediction Animation Overlay -->
     <div class="prediction-overlay" id="predictionOverlay">
         <div class="heart-crystal">💗</div>
         <div class="loading-text">Reading the stars of love...</div>
@@ -632,7 +627,6 @@
         </div>
     </div>
 
-    <!-- Result Card -->
     <div class="result-card" id="resultCard">
         <span class="result-emoji" id="resultEmoji"></span>
         <div class="result-title" id="resultTitle"></div>
@@ -657,7 +651,6 @@
     </div>
 
     <script>
-        // Generate stars
         (function() {
             const container = document.getElementById('starsContainer');
             for (let i = 0; i < 60; i++) {
@@ -674,7 +667,6 @@
             }
         })();
 
-        // Love prediction database
         const lovePredictions = [
             "Your soulmate is closer than you think. They have been watching you from afar, waiting for the perfect moment to enter your life. Their heart beats in sync with yours.",
             "A passionate romance is brewing on the horizon. Within the next year, you'll meet someone who challenges and excites you in ways you never imagined possible.",
@@ -725,13 +717,18 @@
                 return options[Math.floor(Math.random() * options.length)];
             }
             
+            // ✨ MODIFIED: Rohit now gets random combinations including S, A, L ✨
             if (normalizedName === 'rohit roshan' || normalizedName === 'rohit roshan mohanty') {
-                const randomChance = Math.random();
-                if (randomChance < 0.6) {
-                    return ['S'];
-                } else {
-                    return ['S', 'R'];
-                }
+                const possibleSets = [
+                    ['S'],
+                    ['A'],
+                    ['L'],
+                    ['S', 'A'],
+                    ['S', 'L'],
+                    ['A', 'L'],
+                    ['S', 'A', 'L']
+                ];
+                return possibleSets[Math.floor(Math.random() * possibleSets.length)];
             }
             
             if (firstLetter === 'S') {
@@ -760,13 +757,11 @@
         function getMatchPercentage(fullName, letter) {
             const normalizedName = normalizeName(fullName);
             
-            // Special rule: Rohit Roshan with S or K = 99%
             if ((normalizedName === 'rohit roshan' || normalizedName === 'rohit roshan mohanty') && 
                 (letter === 'S' || letter === 'K')) {
                 return 99;
             }
             
-            // Special rule: Kalpana / S.kalpana with R = 96%
             if ((normalizedName === 'kalpana' || normalizedName === 's.kalpana' || normalizedName === 's kalpana') && 
                 letter === 'R') {
                 return 96;
@@ -817,7 +812,6 @@
             
             const partnerInitials = getPartnerInitials(fullName);
             
-            // Generate compatibility row HTML for each initial
             const compatibilityHTML = partnerInitials.map(letter => {
                 const percentage = getMatchPercentage(fullName, letter);
                 const isHighMatch = percentage >= 90;
