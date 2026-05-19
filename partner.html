@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>💖 Love Partner Prediction - Supreme Emperor</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'SF Pro Display', 'Segoe UI', system-ui, -apple-system, sans-serif;
+            min-height: 100vh;
+            background: radial-gradient(ellipse at 50% 30%, #2e0a1a 0%, #150010 40%, #080010 100%);
+            background-attachment: fixed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.2rem;
+            margin: 0;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 25%, rgba(255, 150, 180, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(255, 100, 150, 0.06) 0%, transparent 55%),
+                radial-gradient(circle at 50% 50%, rgba(255, 180, 200, 0.05) 0%, transparent 60%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .stars-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle var(--duration) infinite alternate ease-in-out;
+            opacity: 0;
+        }
+
+        @keyframes twinkle {
+            0% { opacity: 0.15; transform: scale(0.7); }
+            100% { opacity: 0.9; transform: scale(1.2); }
+        }
+
+        .mystic {
+            position: absolute;
+            pointer-events: none;
+            z-index: 1;
+            user-select: none;
+        }
+
+        .mystic-1 {
+            top: 7%;
+            left: 8%;
+            font-size: 2.3rem;
+            animation: floatMystic 5s infinite alternate ease-in-out;
+            filter: drop-shadow(0 0 10px rgba(255, 150, 200, 0.6));
+        }
+
+        .mystic-2 {
+            bottom: 12%;
+            right: 10%;
+            font-size: 2.1rem;
+            animation: floatMystic 6s infinite alternate-reverse ease-in-out;
+            filter: drop-shadow(0 0 10px rgba(255, 120, 180, 0.5));
+        }
+
+        .mystic-3 {
+            top: 40%;
+            right: 8%;
+            font-size: 1.8rem;
+            animation: pulseGlow 3s infinite ease-in-out;
+            filter: drop-shadow(0 0 8px rgba(255, 180, 200, 0.5));
+        }
+
+        @keyframes floatMystic {
+            0% { transform: translateY(0px) rotate(-2deg); }
+            100% { transform: translateY(-18px) rotate(3deg); }
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% { transform: scale(1); opacity: 0.6; }
+            50% { transform: scale(1.15); opacity: 1; }
+        }
+
+        .card {
+            background: rgba(25, 5, 18, 0.75);
+            backdrop-filter: blur(28px);
+            -webkit-backdrop-filter: blur(28px);
+            background: linear-gradient(165deg, rgba(35, 8, 25, 0.8) 0%, rgba(15, 3, 12, 0.9) 100%);
+            border-radius: 2.5rem;
+            padding: 2.2rem 1.8rem;
+            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.7),
+                        0 0 50px rgba(255, 100, 150, 0.2),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.06);
+            text-align: center;
+            max-width: 460px;
+            width: 100%;
+            position: relative;
+            z-index: 10;
+            border: 1px solid rgba(255, 150, 180, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .emperor-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255, 150, 180, 0.12);
+            border: 1px solid rgba(255, 150, 180, 0.35);
+            padding: 0.5rem 1.2rem;
+            border-radius: 2rem;
+            color: #ffb3c6;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            margin-bottom: 1.5rem;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(180deg, #ffb3c6 10%, #ff6b8a 50%, #e85070 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1.2rem;
+        }
+
+        .input-group {
+            margin-bottom: 1rem;
+            text-align: left;
+        }
+
+        .input-group label {
+            display: block;
+            color: #e0a0b5;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.4rem;
+            text-transform: uppercase;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 0.85rem 1.2rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 150, 180, 0.3);
+            border-radius: 2rem;
+            color: #f5c0d0;
+            font-size: 1rem;
+            font-family: inherit;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .input-group input:focus {
+            border-color: rgba(255, 150, 180, 0.6);
+            box-shadow: 0 0 20px rgba(255, 100, 150, 0.15);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .input-group input::placeholder {
+            color: rgba(220, 150, 170, 0.4);
+        }
+
+        .predict-btn {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, #e85070, #c73a5a);
+            border: none;
+            border-radius: 3rem;
+            color: #fff;
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            letter-spacing: 0.5px;
+            margin-top: 1.2rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(200, 60, 90, 0.35);
+            font-family: inherit;
+        }
+
+        .predict-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 40px rgba(220, 70, 100, 0.5);
+            background: linear-gradient(135deg, #f06080, #d44565);
+        }
+
+        .predict-btn:active {
+            transform: scale(0.96);
+        }
+
+        .predict-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Prediction Animation Overlay */
+        .prediction-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.92);
+            z-index: 100;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .prediction-overlay.active {
+            display: flex;
+        }
+
+        .heart-crystal {
+            font-size: 6rem;
+            animation: heartGlow 1s infinite alternate;
+        }
+
+        @keyframes heartGlow {
+            0% {
+                filter: drop-shadow(0 0 20px rgba(255, 100, 150, 0.6));
+                transform: scale(1);
+            }
+            50% {
+                filter: drop-shadow(0 0 50px rgba(255, 150, 200, 1));
+                transform: scale(1.1);
+            }
+            100% {
+                filter: drop-shadow(0 0 30px rgba(255, 120, 170, 0.8));
+                transform: scale(1);
+            }
+        }
+
+        .loading-text {
+            color: #ffb3c6;
+            font-size: 1.3rem;
+            margin-top: 1.5rem;
+            letter-spacing: 1px;
+            animation: fadeText 1.5s infinite;
+        }
+
+        @keyframes fadeText {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        .sparkles {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .sparkle {
+            font-size: 1.5rem;
+            animation: sparkleFloat 0.8s infinite alternate;
+        }
+
+        .sparkle:nth-child(2) { animation-delay: 0.2s; }
+        .sparkle:nth-child(3) { animation-delay: 0.4s; }
+        .sparkle:nth-child(4) { animation-delay: 0.6s; }
+        .sparkle:nth-child(5) { animation-delay: 0.3s; }
+
+        @keyframes sparkleFloat {
+            0% { transform: translateY(0); opacity: 0.3; }
+            100% { transform: translateY(-20px); opacity: 1; }
+        }
+
+        /* Result Card */
+        .result-card {
+            display: none;
+            background: rgba(20, 5, 15, 0.95);
+            backdrop-filter: blur(30px);
+            border-radius: 2rem;
+            padding: 2rem 1.5rem;
+            text-align: center;
+            max-width: 460px;
+            width: 90%;
+            max-height: 85vh;
+            overflow-y: auto;
+            border: 2px solid rgba(255, 150, 180, 0.5);
+            box-shadow: 0 0 50px rgba(255, 100, 150, 0.3);
+            position: relative;
+            z-index: 101;
+        }
+
+        .result-card.active {
+            display: block;
+        }
+
+        .result-emoji {
+            font-size: 4rem;
+            display: block;
+            margin-bottom: 1rem;
+        }
+
+        .result-title {
+            font-size: 1.5rem;
+            color: #ffb3c6;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .result-name {
+            color: #ffb3c6;
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .partner-reveal {
+            background: rgba(255, 150, 180, 0.1);
+            border: 2px solid rgba(255, 150, 180, 0.4);
+            border-radius: 2rem;
+            padding: 1.5rem 1rem;
+            margin: 1rem 0;
+        }
+
+        .partner-initials {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(180deg, #ffb3c6, #ff6b8a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 8px;
+            margin-bottom: 0.5rem;
+        }
+
+        .partner-label {
+            color: #e0a0b5;
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .result-prediction {
+            color: #e8c0d0;
+            font-size: 1rem;
+            line-height: 1.7;
+            margin: 1rem 0;
+            padding: 1rem;
+            background: rgba(255, 150, 180, 0.05);
+            border-radius: 1.5rem;
+            border: 1px solid rgba(255, 150, 180, 0.15);
+            text-align: left;
+        }
+
+        .destiny-message {
+            color: #ffb3c6;
+            font-size: 0.95rem;
+            line-height: 1.8;
+            margin-top: 1.5rem;
+            padding: 1.2rem 1rem;
+            background: rgba(255, 150, 180, 0.08);
+            border-radius: 1.5rem;
+            border: 1px solid rgba(255, 150, 180, 0.3);
+            font-style: italic;
+            text-align: center;
+            letter-spacing: 0.3px;
+        }
+
+        .destiny-message .child-of-destiny {
+            display: block;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #ffccd5;
+            margin-bottom: 0.5rem;
+            font-style: normal;
+            letter-spacing: 1px;
+        }
+
+        .close-btn {
+            margin-top: 1rem;
+            padding: 0.7rem 2rem;
+            background: rgba(255, 150, 180, 0.15);
+            border: 1px solid rgba(255, 150, 180, 0.4);
+            color: #ffb3c6;
+            border-radius: 2rem;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        .close-btn:hover {
+            background: rgba(255, 150, 180, 0.25);
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 1.5rem;
+            color: #d0a0b5;
+            text-decoration: none;
+            font-size: 0.9rem;
+            opacity: 0.7;
+            transition: opacity 0.3s;
+        }
+
+        .back-link:hover {
+            opacity: 1;
+        }
+
+        @media (max-width: 420px) {
+            .card {
+                padding: 1.8rem 1.3rem;
+            }
+            h1 {
+                font-size: 1.5rem;
+            }
+            .result-card {
+                padding: 1.5rem 1.2rem;
+            }
+            .partner-initials {
+                font-size: 2rem;
+                letter-spacing: 6px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="stars-container" id="starsContainer"></div>
+    <div class="mystic mystic-1">💕</div>
+    <div class="mystic mystic-2">💝</div>
+    <div class="mystic mystic-3">💖</div>
+
+    <main class="card" id="mainCard">
+        <div class="emperor-badge">👑 Supreme Emperor of Heaven</div>
+        
+        <h1>Love Partner Prediction</h1>
+        
+        <div class="input-group">
+            <label>Your Full Name</label>
+            <input type="text" id="fullName" placeholder="Enter your full name..." required>
+        </div>
+        
+        <div class="input-group">
+            <label>Your Age</label>
+            <input type="number" id="age" placeholder="Enter your age..." min="1" max="150" required>
+        </div>
+        
+        <button class="predict-btn" id="predictBtn" onclick="startPrediction()">
+            💖 Reveal My Partner
+        </button>
+        
+        <a href="gift.html" class="back-link">← Back to Gift</a>
+    </main>
+
+    <!-- Prediction Animation Overlay -->
+    <div class="prediction-overlay" id="predictionOverlay">
+        <div class="heart-crystal">💗</div>
+        <div class="loading-text">Reading the stars of love...</div>
+        <div class="sparkles">
+            <span class="sparkle">💕</span>
+            <span class="sparkle">💖</span>
+            <span class="sparkle">💝</span>
+            <span class="sparkle">💗</span>
+            <span class="sparkle">💞</span>
+        </div>
+    </div>
+
+    <!-- Result Card -->
+    <div class="result-card" id="resultCard">
+        <span class="result-emoji" id="resultEmoji"></span>
+        <div class="result-title" id="resultTitle"></div>
+        <div class="result-name" id="resultName"></div>
+        
+        <div class="partner-reveal">
+            <div class="partner-label">Your Soulmate's Initials</div>
+            <div class="partner-initials" id="partnerInitials"></div>
+        </div>
+        
+        <div class="result-prediction" id="resultPrediction"></div>
+        
+        <div class="destiny-message">
+            <span class="child-of-destiny">✨ Child of Destiny ✨</span>
+            I am just predict your future according your fate star. But remember those one go against the heaven they reach the peak of stars. So, ask your heart and choose your choice.
+        </div>
+        
+        <button class="close-btn" onclick="closeResult()">Try Again</button>
+    </div>
+
+    <script>
+        // Generate stars
+        (function() {
+            const container = document.getElementById('starsContainer');
+            for (let i = 0; i < 60; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                const size = Math.random() * 2.5 + 1;
+                star.style.width = size + 'px';
+                star.style.height = size + 'px';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.setProperty('--duration', (Math.random() * 3 + 2) + 's');
+                star.style.animationDelay = Math.random() * 4 + 's';
+                container.appendChild(star);
+            }
+        })();
+
+        // Love prediction database
+        const lovePredictions = [
+            "Your soulmate is closer than you think. They have been watching you from afar, waiting for the perfect moment to enter your life. Their heart beats in sync with yours.",
+            "A passionate romance is brewing on the horizon. Within the next year, you'll meet someone who challenges and excites you in ways you never imagined possible.",
+            "Your love story will be one for the ages. The connection you'll share with your partner will inspire poetry and songs, a bond that transcends ordinary love.",
+            "Fate has designed a meeting that will feel like coming home. When you lock eyes with your destined partner, your soul will instantly recognize its other half.",
+            "Your partner possesses a gentle strength that will complement your spirit perfectly. Together, you'll build a fortress of love that withstands all storms.",
+            "The stars reveal a love that grows stronger with each passing day. Your relationship will be built on trust, laughter, and an unshakeable foundation of friendship.",
+            "A mysterious stranger will soon enter your life, bringing with them a whirlwind of romance and adventure. Say yes to unexpected invitations!",
+            "Your soulmate shares your deepest values and dreams. When you meet, conversations will flow endlessly, and silence will feel just as comfortable.",
+            "Love is about to bloom in the most unexpected place. Keep your heart open – your partner may appear where you least expect them.",
+            "You are destined for a love that feels like magic. Every moment with your partner will be filled with wonder, passion, and divine connection.",
+            "Your future partner has a heart of gold and a spirit of fire. They will inspire you to become the best version of yourself while loving you exactly as you are.",
+            "The universe is preparing a grand romantic gesture. Someone is already falling in love with the idea of you, and soon they'll fall for the reality.",
+            "A deep, soulful connection awaits you. Your partner will understand you without words and support your wildest dreams with unwavering devotion.",
+            "Your love life is about to transform dramatically. A person from your past may return with new intentions, or a completely new chapter begins.",
+            "The cosmos indicates a love that balances passion with peace. Your partner will be both your greatest adventure and your safest harbor.",
+            "Someone is praying for someone exactly like you. Your future partner is out there, and the universe is conspiring to bring you together at the perfect time.",
+            "You will experience a love that heals old wounds. Your partner will see your scars and love you more for them, not despite them.",
+            "A creative and artistic soul is your destiny. Together, you'll paint a beautiful life filled with color, music, and shared artistic expression.",
+            "Your partner will be your greatest teacher and student. You'll learn from each other daily, growing together in wisdom and love.",
+            "The stars predict a love that breaks all your rules. They won't be your usual type, but they'll be exactly what your heart needs."
+        ];
+
+        function normalizeName(name) {
+            return name.toLowerCase().replace(/\s+/g, ' ').trim();
+        }
+
+        function getFirstLetter(name) {
+            const trimmed = name.trim();
+            return trimmed.charAt(0).toUpperCase();
+        }
+
+        function getPartnerInitials(fullName) {
+            const normalizedName = normalizeName(fullName);
+            const firstLetter = getFirstLetter(fullName);
+            
+            // Special handling for Pankaj
+            if (normalizedName.includes('pankaj')) {
+                return ['J', 'P', 'S', 'A'];
+            }
+            
+            // Special handling for names starting with A
+            if (firstLetter === 'A') {
+                const options = [
+                    ['R', 'A'],
+                    ['G', 'L'],
+                    ['R', 'A', 'G'],
+                    ['A', 'G', 'L']
+                ];
+                return options[Math.floor(Math.random() * options.length)];
+            }
+            
+            // Special handling for Rohit Roshan
+            if (normalizedName === 'rohit roshan' || normalizedName === 'rohit roshan mohanty') {
+                const randomChance = Math.random();
+                if (randomChance < 0.6) {
+                    // 60% chance: show only S
+                    return ['S'];
+                } else {
+                    // 40% chance: show S, R
+                    return ['S', 'R'];
+                }
+            }
+            
+            // Special handling for names starting with S
+            if (firstLetter === 'S') {
+                const randomChance = Math.random();
+                if (randomChance < 0.75) {
+                    // 75% chance: show only R
+                    return ['R'];
+                } else {
+                    // 25% chance: show R, A, S
+                    const options = [
+                        ['R', 'A'],
+                        ['R', 'S'],
+                        ['R', 'A', 'S']
+                    ];
+                    return options[Math.floor(Math.random() * options.length)];
+                }
+            }
+            
+            // Default: random initials for other names
+            const allLetters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+            const count = Math.floor(Math.random() * 3) + 2; // 2-4 initials
+            const initials = [];
+            for (let i = 0; i < count; i++) {
+                initials.push(allLetters[Math.floor(Math.random() * allLetters.length)]);
+            }
+            return initials;
+        }
+
+        function startPrediction() {
+            const fullName = document.getElementById('fullName').value.trim();
+            const age = parseInt(document.getElementById('age').value);
+
+            // Validation
+            if (!fullName) {
+                alert('Please enter your full name.');
+                return;
+            }
+            if (!age || age < 1 || age > 150) {
+                alert('Please enter a valid age between 1 and 150.');
+                return;
+            }
+
+            // Hide main card, show animation
+            document.getElementById('mainCard').style.display = 'none';
+            document.getElementById('predictionOverlay').classList.add('active');
+            document.getElementById('predictBtn').disabled = true;
+
+            // After 3 seconds, show result
+            setTimeout(() => {
+                showPrediction(fullName, age);
+            }, 3000);
+        }
+
+        function showPrediction(fullName, age) {
+            // Hide animation overlay
+            document.getElementById('predictionOverlay').classList.remove('active');
+
+            const normalizedName = normalizeName(fullName);
+            const isUnder21 = age < 21;
+            
+            // Get partner initials based on name rules
+            const partnerInitials = getPartnerInitials(fullName);
+            
+            // Select prediction
+            let prediction;
+            let emoji;
+            let title;
+
+            if (isUnder21) {
+                // Under 21: 95% positive love prediction
+                const randomChance = Math.random();
+                if (randomChance < 0.05) {
+                    prediction = "Young heart, be patient. Love will come when you least expect it, but first focus on knowing yourself completely. True love waits for those who are ready.";
+                    emoji = "💫";
+                    title = "Patience, Young Soul";
+                } else {
+                    prediction = lovePredictions[Math.floor(Math.random() * lovePredictions.length)];
+                    emoji = "💖";
+                    title = "Love is in Your Stars!";
+                }
+            } else {
+                prediction = lovePredictions[Math.floor(Math.random() * lovePredictions.length)];
+                emoji = "💝";
+                title = "Your Soulmate Revealed!";
+            }
+
+            // Special message for Rohit Roshan
+            if (normalizedName === 'rohit roshan' || normalizedName === 'rohit roshan mohanty') {
+                prediction = "Rohit Roshan, the Supreme Emperor sees a love of extraordinary depth coming your way. Your partner will match your greatness and together you'll create an empire of love that inspires the world. The initials revealed are blessed by the heavens themselves. 💖👑";
+                emoji = "👑";
+                title = "A Love Fit for Royalty!";
+            }
+
+            // Display partner initials
+            document.getElementById('partnerInitials').textContent = partnerInitials.join('  ');
+            
+            // Add name to prediction
+            prediction = `${fullName}, ${prediction}`;
+
+            // Display result
+            document.getElementById('resultEmoji').textContent = emoji;
+            document.getElementById('resultTitle').textContent = title;
+            document.getElementById('resultName').textContent = `✨ ${fullName} ✨`;
+            document.getElementById('resultPrediction').textContent = prediction;
+            document.getElementById('resultCard').classList.add('active');
+        }
+
+        function closeResult() {
+            document.getElementById('resultCard').classList.remove('active');
+            document.getElementById('mainCard').style.display = 'block';
+            document.getElementById('predictBtn').disabled = false;
+            
+            // Clear inputs
+            document.getElementById('fullName').value = '';
+            document.getElementById('age').value = '';
+        }
+    </script>
+</body>
+</html>

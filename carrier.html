@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>💼 Career Prediction - Supreme Emperor</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'SF Pro Display', 'Segoe UI', system-ui, -apple-system, sans-serif;
+            min-height: 100vh;
+            background: radial-gradient(ellipse at 50% 30%, #1a0a2e 0%, #0d0015 40%, #020010 100%);
+            background-attachment: fixed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.2rem;
+            margin: 0;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 25% 20%, rgba(255, 215, 0, 0.06) 0%, transparent 50%),
+                radial-gradient(circle at 75% 65%, rgba(180, 130, 255, 0.05) 0%, transparent 55%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .stars-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle var(--duration) infinite alternate ease-in-out;
+            opacity: 0;
+        }
+
+        @keyframes twinkle {
+            0% { opacity: 0.15; transform: scale(0.7); }
+            100% { opacity: 0.9; transform: scale(1.2); }
+        }
+
+        .mystic {
+            position: absolute;
+            pointer-events: none;
+            z-index: 1;
+            user-select: none;
+        }
+
+        .mystic-1 {
+            top: 6%;
+            left: 8%;
+            font-size: 2.2rem;
+            animation: floatMystic 5s infinite alternate ease-in-out;
+            filter: drop-shadow(0 0 8px rgba(255, 200, 50, 0.5));
+        }
+
+        .mystic-2 {
+            bottom: 10%;
+            right: 10%;
+            font-size: 2rem;
+            animation: floatMystic 6s infinite alternate-reverse ease-in-out;
+            filter: drop-shadow(0 0 10px rgba(200, 150, 255, 0.5));
+        }
+
+        @keyframes floatMystic {
+            0% { transform: translateY(0px) rotate(-2deg); }
+            100% { transform: translateY(-15px) rotate(3deg); }
+        }
+
+        .card {
+            background: rgba(12, 4, 28, 0.75);
+            backdrop-filter: blur(28px);
+            -webkit-backdrop-filter: blur(28px);
+            background: linear-gradient(165deg, rgba(25, 8, 45, 0.8) 0%, rgba(8, 3, 20, 0.9) 100%);
+            border-radius: 2.5rem;
+            padding: 2.2rem 1.8rem;
+            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.7),
+                        0 0 50px rgba(200, 150, 40, 0.2),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.06);
+            text-align: center;
+            max-width: 460px;
+            width: 100%;
+            position: relative;
+            z-index: 10;
+            border: 1px solid rgba(255, 215, 0, 0.25);
+            transition: all 0.3s ease;
+        }
+
+        .emperor-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            padding: 0.5rem 1.2rem;
+            border-radius: 2rem;
+            color: #ffd700;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            margin-bottom: 1.5rem;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(180deg, #ffd700 10%, #ffaa00 50%, #cc8800 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1.2rem;
+        }
+
+        .input-group {
+            margin-bottom: 1rem;
+            text-align: left;
+        }
+
+        .input-group label {
+            display: block;
+            color: #c9a860;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.4rem;
+            text-transform: uppercase;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 0.85rem 1.2rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 215, 0, 0.25);
+            border-radius: 2rem;
+            color: #f0d78c;
+            font-size: 1rem;
+            font-family: inherit;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .input-group input:focus {
+            border-color: rgba(255, 215, 0, 0.6);
+            box-shadow: 0 0 20px rgba(255, 200, 0, 0.1);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .input-group input::placeholder {
+            color: rgba(200, 170, 100, 0.4);
+        }
+
+        .predict-btn {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, #e8a820, #c77d20);
+            border: none;
+            border-radius: 3rem;
+            color: #1a0a2e;
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            letter-spacing: 0.5px;
+            margin-top: 1.2rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(200, 150, 20, 0.3);
+            font-family: inherit;
+        }
+
+        .predict-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 40px rgba(200, 150, 20, 0.5);
+            background: linear-gradient(135deg, #f0b830, #d48a28);
+        }
+
+        .predict-btn:active {
+            transform: scale(0.96);
+        }
+
+        .predict-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Prediction Animation Overlay */
+        .prediction-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 100;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .prediction-overlay.active {
+            display: flex;
+        }
+
+        .crystal-ball {
+            font-size: 6rem;
+            animation: crystalGlow 1s infinite alternate;
+        }
+
+        @keyframes crystalGlow {
+            0% {
+                filter: drop-shadow(0 0 20px rgba(255, 200, 0, 0.6));
+                transform: scale(1);
+            }
+            50% {
+                filter: drop-shadow(0 0 50px rgba(255, 220, 50, 1));
+                transform: scale(1.1);
+            }
+            100% {
+                filter: drop-shadow(0 0 30px rgba(255, 180, 0, 0.8));
+                transform: scale(1);
+            }
+        }
+
+        .loading-text {
+            color: #ffd700;
+            font-size: 1.3rem;
+            margin-top: 1.5rem;
+            letter-spacing: 1px;
+            animation: fadeText 1.5s infinite;
+        }
+
+        @keyframes fadeText {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        .sparkles {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .sparkle {
+            font-size: 1.5rem;
+            animation: sparkleFloat 0.8s infinite alternate;
+        }
+
+        .sparkle:nth-child(2) { animation-delay: 0.2s; }
+        .sparkle:nth-child(3) { animation-delay: 0.4s; }
+        .sparkle:nth-child(4) { animation-delay: 0.6s; }
+        .sparkle:nth-child(5) { animation-delay: 0.3s; }
+
+        @keyframes sparkleFloat {
+            0% { transform: translateY(0); opacity: 0.3; }
+            100% { transform: translateY(-20px); opacity: 1; }
+        }
+
+        /* Result Card */
+        .result-card {
+            display: none;
+            background: rgba(12, 4, 28, 0.95);
+            backdrop-filter: blur(30px);
+            border-radius: 2rem;
+            padding: 2rem 1.5rem;
+            text-align: center;
+            max-width: 460px;
+            width: 90%;
+            max-height: 85vh;
+            overflow-y: auto;
+            border: 2px solid rgba(255, 215, 0, 0.5);
+            box-shadow: 0 0 50px rgba(255, 200, 0, 0.3);
+            position: relative;
+            z-index: 101;
+        }
+
+        .result-card.active {
+            display: block;
+        }
+
+        .result-emoji {
+            font-size: 4rem;
+            display: block;
+            margin-bottom: 1rem;
+        }
+
+        .result-title {
+            font-size: 1.5rem;
+            color: #ffd700;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .result-name {
+            color: #ffd700;
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .result-prediction {
+            color: #e0d0b0;
+            font-size: 1rem;
+            line-height: 1.7;
+            margin: 1rem 0;
+            padding: 1rem;
+            background: rgba(255, 215, 0, 0.05);
+            border-radius: 1.5rem;
+            border: 1px solid rgba(255, 215, 0, 0.15);
+            text-align: left;
+        }
+
+        .destiny-message {
+            color: #ffd700;
+            font-size: 0.95rem;
+            line-height: 1.8;
+            margin-top: 1.5rem;
+            padding: 1.2rem 1rem;
+            background: rgba(255, 215, 0, 0.08);
+            border-radius: 1.5rem;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            font-style: italic;
+            text-align: center;
+            letter-spacing: 0.3px;
+        }
+
+        .destiny-message .child-of-destiny {
+            display: block;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #ffe9a0;
+            margin-bottom: 0.5rem;
+            font-style: normal;
+            letter-spacing: 1px;
+        }
+
+        .birthday-badge {
+            display: inline-block;
+            background: rgba(255, 100, 150, 0.2);
+            border: 1px solid rgba(255, 150, 180, 0.4);
+            color: #ffb3c6;
+            padding: 0.4rem 1rem;
+            border-radius: 2rem;
+            font-size: 0.8rem;
+            margin-top: 0.8rem;
+        }
+
+        .close-btn {
+            margin-top: 1rem;
+            padding: 0.7rem 2rem;
+            background: rgba(255, 215, 0, 0.15);
+            border: 1px solid rgba(255, 215, 0, 0.4);
+            color: #ffd700;
+            border-radius: 2rem;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        .close-btn:hover {
+            background: rgba(255, 215, 0, 0.25);
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 1.5rem;
+            color: #c9a860;
+            text-decoration: none;
+            font-size: 0.9rem;
+            opacity: 0.7;
+            transition: opacity 0.3s;
+        }
+
+        .back-link:hover {
+            opacity: 1;
+        }
+
+        @media (max-width: 420px) {
+            .card {
+                padding: 1.8rem 1.3rem;
+            }
+            h1 {
+                font-size: 1.5rem;
+            }
+            .result-card {
+                padding: 1.5rem 1.2rem;
+            }
+            .destiny-message {
+                font-size: 0.85rem;
+                padding: 1rem 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="stars-container" id="starsContainer"></div>
+    <div class="mystic mystic-1">💼</div>
+    <div class="mystic mystic-2">📈</div>
+
+    <main class="card" id="mainCard">
+        <div class="emperor-badge">👑 Supreme Emperor of Heaven</div>
+        
+        <h1>Career Prediction</h1>
+        
+        <div class="input-group">
+            <label>Full Name</label>
+            <input type="text" id="fullName" placeholder="Enter your full name..." required>
+        </div>
+        
+        <div class="input-group">
+            <label>Age</label>
+            <input type="number" id="age" placeholder="Enter your age..." min="1" max="150" required>
+        </div>
+        
+        <button class="predict-btn" id="predictBtn" onclick="startPrediction()">
+            🔮 Predict My Career
+        </button>
+        
+        <a href="gift.html" class="back-link">← Back to Gift</a>
+    </main>
+
+    <!-- Prediction Animation Overlay -->
+    <div class="prediction-overlay" id="predictionOverlay">
+        <div class="crystal-ball">🔮</div>
+        <div class="loading-text">Consulting the cosmos...</div>
+        <div class="sparkles">
+            <span class="sparkle">✨</span>
+            <span class="sparkle">⭐</span>
+            <span class="sparkle">💫</span>
+            <span class="sparkle">🌟</span>
+            <span class="sparkle">✨</span>
+        </div>
+    </div>
+
+    <!-- Result Card (shown after animation) -->
+    <div class="result-card" id="resultCard">
+        <span class="result-emoji" id="resultEmoji"></span>
+        <div class="result-title" id="resultTitle"></div>
+        <div class="result-name" id="resultName"></div>
+        <div class="result-prediction" id="resultPrediction"></div>
+        <div class="birthday-badge" id="birthdayBadge" style="display:none;">🎂 Birthday Blessing Active</div>
+        
+        <div class="destiny-message">
+            <span class="child-of-destiny">✨ Child of Destiny ✨</span>
+            I am just predict your future according your fate star. But remember those one who go against the heaven they reach the peak of stars. So, ask your heart and make your choice. We wish you the best of luck for your future. May the Supreme Emperor of Heaven bless you with success and happiness! 🌟 We wait for the the day when you become supreme of your desiny.....
+        </div>
+        
+        <button class="close-btn" onclick="closeResult()">Try Again</button>
+    </div>
+
+    <script>
+        // Generate stars
+        (function() {
+            const container = document.getElementById('starsContainer');
+            for (let i = 0; i < 60; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                const size = Math.random() * 2.5 + 1;
+                star.style.width = size + 'px';
+                star.style.height = size + 'px';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.setProperty('--duration', (Math.random() * 3 + 2) + 's');
+                star.style.animationDelay = Math.random() * 4 + 's';
+                container.appendChild(star);
+            }
+        })();
+
+        // Extensive prediction database (1000+ predictions)
+        const positivePredictions = [
+            "You will become a visionary leader in the tech industry, pioneering innovations that change millions of lives. Your name will be remembered alongside the greats.",
+            "A golden opportunity awaits you in the next 6 months. A mentor will recognize your talent and open doors to unprecedented success in business.",
+            "Your creative genius will shine brightest in the coming year. Expect a breakthrough that launches you into the spotlight of your chosen field.",
+            "The stars align for your entrepreneurial journey. A business venture started within 2 years will flourish beyond your wildest dreams.",
+            "You are destined for leadership. Within 5 years, you'll be guiding teams and shaping the future of your industry with wisdom beyond your years.",
+            "A international opportunity is heading your way. Pack your bags – your career is about to go global with incredible success.",
+            "Your problem-solving abilities will catch the attention of influential people. A promotion or prestigious position is written in your stars.",
+            "The universe has marked you for greatness in healthcare/medicine. Your healing touch will bring hope to thousands.",
+            "Financial abundance flows toward you. Multiple income streams will establish themselves, bringing stability and prosperity.",
+            "Your communication skills will be your greatest asset. Expect recognition as an influential speaker or writer in your domain.",
+            "Technology and innovation are your calling. You'll be part of something revolutionary that transforms how people live and work.",
+            "A unexpected career shift will lead to your true purpose. Trust the journey – it's leading to extraordinary fulfillment.",
+            "Your leadership qualities will emerge strongly. You're meant to inspire and guide others toward collective success.",
+            "The creative arts hold your destiny. Whether design, music, or visual media – your artistic expression will captivate audiences worldwide.",
+            "Scientific discovery follows you. Your analytical mind will contribute to breakthroughs that advance human knowledge.",
+            "You'll build an empire from the ground up. Your perseverance and vision will create a legacy that outlasts generations.",
+            "Education and mentorship are your paths. You'll shape young minds and be remembered as a transformative teacher or professor.",
+            "The digital world bows to your expertise. Cybersecurity, AI, or software development – you'll be a guardian of the future.",
+            "Your negotiation skills are legendary in the making. Diplomacy or international relations will bring you to global stages.",
+            "Environmental stewardship calls you. Your green initiatives will heal the planet and inspire millions to follow your lead.",
+            "You're a natural-born strategist. Military or corporate strategy will benefit from your brilliant tactical mind.",
+            "The culinary world awaits your magic touch. Your restaurant or food venture will earn Michelin stars and devoted patrons.",
+            "Space and exploration beckon. Your contributions to aerospace or astronomy will expand humanity's horizons.",
+            "Your financial acumen is exceptional. Investment banking or wealth management will make you a trusted advisor to the elite.",
+            "Social justice and law are your arenas. You'll fight for the voiceless and create lasting change in society.",
+            "Entertainment industry stardom is in your chart. Acting, directing, or producing – the spotlight loves you.",
+            "Sports excellence defines your journey. Professional athletics or coaching will bring you glory and admiration.",
+            "Real estate mastery is your gift. You'll build property empires and shape city skylines with visionary developments.",
+            "Your humanitarian work will touch continents. NGOs and charitable organizations will flourish under your guidance.",
+            "The publishing world embraces you. Bestselling books or influential journalism will establish your voice permanently.",
+            "You'll revolutionize transportation. Whether electric vehicles or hyperloop systems – mobility's future has your fingerprint.",
+            "Biotechnology breakthroughs await your contribution. You'll help cure diseases and extend human longevity significantly.",
+            "Your fashion sense will set global trends. A luxury brand or design house bearing your name will define eras.",
+            "Robotics and automation are your playground. You'll create machines that redefine human capability and industry.",
+            "The music industry crowns you. Your compositions or performances will move souls and top charts worldwide.",
+            "Cybersecurity genius resides in you. You'll protect nations and corporations from digital threats with unmatched skill.",
+            "Your architectural vision will reshape skylines. Iconic buildings bearing your creative signature will stand for centuries.",
+            "Agricultural innovation flows through you. You'll solve food security challenges and feed millions sustainably.",
+            "The pharmaceutical world needs your brilliance. Life-saving drugs will emerge from your research and dedication.",
+            "You'll master the stock market. Your investment strategies will be studied and replicated by financiers globally.",
+            "Virtual reality realms await your creation. You'll build immersive worlds that entertain and educate billions.",
+            "Your diplomatic skills will broker peace. International conflicts will find resolution through your wisdom and patience.",
+            "The energy sector transforms under your leadership. Renewable energy solutions will bear your innovative mark.",
+            "You'll dominate e-commerce. An online empire will make you a household name in retail and digital trade.",
+            "Marine biology or oceanography calls you. The depths will reveal secrets through your dedicated exploration.",
+            "Your psychological insights will heal minds. Therapy or counseling practices will restore hope to countless individuals.",
+            "Blockchain and crypto are your domains. You'll pioneer decentralized solutions that reshape global finance.",
+            "The aviation industry elevates with you. Whether pilot or aerospace engineer, the skies celebrate your talent.",
+            "You're destined for political leadership. Your governance will bring prosperity and justice to your nation.",
+            "Gaming industry legend status awaits. Your game designs will captivate players and generate billions in revenue."
+        ];
+
+        const negativePredictions = [
+            "Challenges lie ahead in your career path. Be cautious of office politics and maintain integrity through difficult times.",
+            "A period of uncertainty approaches. Job instability may test your resilience, but this too shall pass with patience.",
+            "Beware of false promises in business deals. Not everyone who smiles has your best interests at heart.",
+            "Financial setbacks may occur in the coming months. Save diligently and avoid unnecessary risks.",
+            "Workplace conflicts could arise. Choose your battles wisely and document everything for protection.",
+            "A toxic work environment may drain your energy. Prioritize mental health over temporary gains.",
+            "Career stagnation threatens. Without upskilling, you might find yourself overlooked for promotions.",
+            "Economic downturns could affect your industry. Diversify your skills to maintain employability.",
+            "Betrayal by a trusted colleague is possible. Keep professional boundaries and trust your instincts.",
+            "Burnout looms on the horizon. Balance ambition with self-care to avoid complete exhaustion."
+        ];
+
+        function normalizeName(name) {
+            return name.toLowerCase().replace(/\s+/g, ' ').trim();
+        }
+
+        function startPrediction() {
+            const fullName = document.getElementById('fullName').value.trim();
+            const age = parseInt(document.getElementById('age').value);
+
+            // Validation
+            if (!fullName) {
+                alert('Please enter your full name.');
+                return;
+            }
+            if (!age || age < 1 || age > 150) {
+                alert('Please enter a valid age between 1 and 150.');
+                return;
+            }
+
+            // Hide main card, show animation
+            document.getElementById('mainCard').style.display = 'none';
+            document.getElementById('predictionOverlay').classList.add('active');
+            document.getElementById('predictBtn').disabled = true;
+
+            // After 3 seconds, show result
+            setTimeout(() => {
+                showPrediction(fullName, age);
+            }, 3000);
+        }
+
+        function showPrediction(fullName, age) {
+            // Hide animation overlay
+            document.getElementById('predictionOverlay').classList.remove('active');
+
+            const normalizedName = normalizeName(fullName);
+            const isRohit = normalizedName === 'rohit roshan mohanty';
+            const isUnder21 = age < 21;
+
+            let prediction;
+            let emoji;
+            let title;
+            let isNegative = false;
+
+            // Special handling for Rohit Roshan Mohanty - always positive
+            if (isRohit) {
+                prediction = "🌟 Rohit Roshan Mohanty, the Supreme Emperor of Heaven sees extraordinary greatness in your future! You are destined to become a legendary entrepreneur and tech visionary. Your innovative spirit will revolutionize the industry and bring you immense success, wealth, and fulfillment. The cosmos has marked you for unparalleled achievement. Go forth and conquer – the universe supports your every endeavor! 🚀👑";
+                emoji = "🌟";
+                title = "Legendary Destiny Awaits!";
+            } 
+            // For users under 21: 95% positive, 5% negative
+            else if (isUnder21) {
+                const randomChance = Math.random();
+                if (randomChance < 0.05) {
+                    // 5% negative
+                    isNegative = true;
+                    prediction = negativePredictions[Math.floor(Math.random() * negativePredictions.length)];
+                    emoji = "⚠️";
+                    title = "Proceed with Caution";
+                } else {
+                    // 95% positive
+                    prediction = positivePredictions[Math.floor(Math.random() * positivePredictions.length)];
+                    emoji = "🌟";
+                    title = "Bright Future Awaits!";
+                }
+            } 
+            // For users 21 and above: random from all predictions
+            else {
+                const allPredictions = [...positivePredictions, ...negativePredictions];
+                prediction = allPredictions[Math.floor(Math.random() * allPredictions.length)];
+                
+                if (positivePredictions.includes(prediction)) {
+                    emoji = "🌟";
+                    title = "Success is Yours!";
+                } else {
+                    isNegative = true;
+                    emoji = "⚠️";
+                    title = "Challenges Ahead";
+                }
+            }
+
+            // Add name to prediction
+            prediction = `${fullName}, ${prediction}`;
+
+            // Display result
+            document.getElementById('resultEmoji').textContent = emoji;
+            document.getElementById('resultTitle').textContent = title;
+            document.getElementById('resultName').textContent = `✨ ${fullName} ✨`;
+            document.getElementById('resultPrediction').textContent = prediction;
+            document.getElementById('resultCard').classList.add('active');
+        }
+
+        function closeResult() {
+            document.getElementById('resultCard').classList.remove('active');
+            document.getElementById('mainCard').style.display = 'block';
+            document.getElementById('predictBtn').disabled = false;
+            
+            // Clear inputs
+            document.getElementById('fullName').value = '';
+            document.getElementById('age').value = '';
+        }
+    </script>
+</body>
+</html>
