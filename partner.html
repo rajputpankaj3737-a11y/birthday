@@ -215,6 +215,39 @@
             transform: none;
         }
 
+        /* Manual matchmaking button */
+        .matchmaking-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            width: 100%;
+            padding: 0.85rem;
+            background: linear-gradient(135deg, rgba(255, 150, 180, 0.2), rgba(255, 100, 150, 0.15));
+            border: 2px solid rgba(255, 150, 180, 0.4);
+            border-radius: 3rem;
+            color: #ffb3c6;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            letter-spacing: 0.5px;
+            margin-top: 0.8rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            font-family: inherit;
+        }
+
+        .matchmaking-btn:hover {
+            background: linear-gradient(135deg, rgba(255, 150, 180, 0.3), rgba(255, 100, 150, 0.25));
+            border-color: rgba(255, 150, 180, 0.7);
+            box-shadow: 0 10px 25px rgba(255, 100, 150, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .matchmaking-btn:active {
+            transform: scale(0.96);
+        }
+
         /* Prediction Animation Overlay */
         .prediction-overlay {
             display: none;
@@ -338,6 +371,10 @@
             margin: 1rem 0;
         }
 
+        .partner-initials-container {
+            margin-bottom: 1rem;
+        }
+
         .partner-initials {
             font-size: 2.5rem;
             font-weight: 800;
@@ -346,7 +383,7 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
             letter-spacing: 8px;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.3rem;
         }
 
         .partner-label {
@@ -354,6 +391,87 @@
             font-size: 0.85rem;
             letter-spacing: 2px;
             text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+
+        /* Compatibility percentages for each letter */
+        .compatibility-row {
+            display: flex;
+            flex-direction: column;
+            gap: 0.7rem;
+            margin-top: 0.5rem;
+        }
+
+        .compatibility-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background: rgba(255, 150, 180, 0.08);
+            border: 1px solid rgba(255, 150, 180, 0.2);
+            border-radius: 1.5rem;
+            padding: 0.8rem 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .compatibility-item.high-match {
+            background: rgba(255, 100, 150, 0.15);
+            border-color: rgba(255, 100, 150, 0.5);
+            box-shadow: 0 0 15px rgba(255, 100, 150, 0.2);
+            animation: glowItem 2s infinite alternate;
+        }
+
+        @keyframes glowItem {
+            0% { box-shadow: 0 0 10px rgba(255, 100, 150, 0.15); }
+            100% { box-shadow: 0 0 20px rgba(255, 100, 150, 0.35); }
+        }
+
+        .compatibility-letter {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #ffb3c6;
+            min-width: 40px;
+            text-align: center;
+        }
+
+        .compatibility-bar-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+        }
+
+        .compatibility-bar-bg {
+            width: 100%;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .compatibility-bar-fill {
+            height: 100%;
+            border-radius: 10px;
+            transition: width 1s ease;
+            background: linear-gradient(90deg, #ff6b8a, #ffb3c6);
+        }
+
+        .compatibility-bar-fill.high {
+            background: linear-gradient(90deg, #ff3366, #ff6b8a, #ffb3c6);
+            box-shadow: 0 0 10px rgba(255, 50, 100, 0.5);
+        }
+
+        .compatibility-percent {
+            color: #ffb3c6;
+            font-weight: 700;
+            font-size: 1rem;
+            min-width: 45px;
+            text-align: right;
+        }
+
+        .compatibility-heart {
+            font-size: 1rem;
+            min-width: 25px;
+            text-align: center;
         }
 
         .result-prediction {
@@ -424,6 +542,24 @@
             opacity: 1;
         }
 
+        .divider-or {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin: 0.5rem 0;
+            color: #e0a0b5;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+        }
+
+        .divider-or::before,
+        .divider-or::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: rgba(255, 150, 180, 0.3);
+        }
+
         @media (max-width: 420px) {
             .card {
                 padding: 1.8rem 1.3rem;
@@ -437,6 +573,14 @@
             .partner-initials {
                 font-size: 2rem;
                 letter-spacing: 6px;
+            }
+            .compatibility-letter {
+                font-size: 1.4rem;
+                min-width: 30px;
+            }
+            .compatibility-item {
+                padding: 0.6rem 0.9rem;
+                gap: 0.6rem;
             }
         }
     </style>
@@ -466,6 +610,12 @@
             💖 Reveal My Partner
         </button>
         
+        <div class="divider-or">OR</div>
+        
+        <a href="match.html" class="matchmaking-btn">
+            💘 Match Compatibility 💘
+        </a>
+        
         <a href="gift.html" class="back-link">← Back to Gift</a>
     </main>
 
@@ -489,15 +639,18 @@
         <div class="result-name" id="resultName"></div>
         
         <div class="partner-reveal">
-            <div class="partner-label">Your Soulmate's Initials</div>
-            <div class="partner-initials" id="partnerInitials"></div>
+            <div class="partner-label">Your Soulmate's Initials & Compatibility</div>
+            <div class="partner-initials-container">
+                <div class="partner-initials" id="partnerInitials"></div>
+            </div>
+            <div class="compatibility-row" id="compatibilityRow"></div>
         </div>
         
         <div class="result-prediction" id="resultPrediction"></div>
         
         <div class="destiny-message">
             <span class="child-of-destiny">✨ Child of Destiny ✨</span>
-            I am just predict your future according your fate star. But remember those one go against the heaven they reach the peak of stars. So, ask your heart and choose your choice.
+            I am just predict your future according your fate star. But remember those one who go against the heaven they reach the peak of stars. So, ask your heart and make your choice. We wish you the best of luck for your future. May the Supreme Emperor of Heaven bless you with success and happiness! 🌟 We wait for the the day when you become supreme of your love desiny.....
         </div>
         
         <button class="close-btn" onclick="closeResult()">Try Again</button>
@@ -558,12 +711,10 @@
             const normalizedName = normalizeName(fullName);
             const firstLetter = getFirstLetter(fullName);
             
-            // Special handling for Pankaj
             if (normalizedName.includes('pankaj')) {
                 return ['J', 'P', 'S', 'A'];
             }
             
-            // Special handling for names starting with A
             if (firstLetter === 'A') {
                 const options = [
                     ['R', 'A'],
@@ -574,26 +725,20 @@
                 return options[Math.floor(Math.random() * options.length)];
             }
             
-            // Special handling for Rohit Roshan
             if (normalizedName === 'rohit roshan' || normalizedName === 'rohit roshan mohanty') {
                 const randomChance = Math.random();
                 if (randomChance < 0.6) {
-                    // 60% chance: show only S
                     return ['S'];
                 } else {
-                    // 40% chance: show S, R
                     return ['S', 'R'];
                 }
             }
             
-            // Special handling for names starting with S
             if (firstLetter === 'S') {
                 const randomChance = Math.random();
                 if (randomChance < 0.75) {
-                    // 75% chance: show only R
                     return ['R'];
                 } else {
-                    // 25% chance: show R, A, S
                     const options = [
                         ['R', 'A'],
                         ['R', 'S'],
@@ -603,9 +748,8 @@
                 }
             }
             
-            // Default: random initials for other names
             const allLetters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
-            const count = Math.floor(Math.random() * 3) + 2; // 2-4 initials
+            const count = Math.floor(Math.random() * 3) + 2;
             const initials = [];
             for (let i = 0; i < count; i++) {
                 initials.push(allLetters[Math.floor(Math.random() * allLetters.length)]);
@@ -613,11 +757,40 @@
             return initials;
         }
 
+        function getMatchPercentage(fullName, letter) {
+            const normalizedName = normalizeName(fullName);
+            
+            // Special rule: Rohit Roshan with S or K = 99%
+            if ((normalizedName === 'rohit roshan' || normalizedName === 'rohit roshan mohanty') && 
+                (letter === 'S' || letter === 'K')) {
+                return 99;
+            }
+            
+            // Special rule: Kalpana / S.kalpana with R = 96%
+            if ((normalizedName === 'kalpana' || normalizedName === 's.kalpana' || normalizedName === 's kalpana') && 
+                letter === 'R') {
+                return 96;
+            }
+            
+            const nameSum = normalizedName.split('').reduce((sum, char) => sum + char.charCodeAt(0), 0);
+            const letterCode = letter.charCodeAt(0);
+            const basePercent = ((nameSum * letterCode) % 35) + 65;
+            
+            return Math.min(99, Math.max(65, basePercent));
+        }
+
+        function getHeartEmoji(percentage) {
+            if (percentage >= 95) return '💘';
+            if (percentage >= 85) return '💝';
+            if (percentage >= 75) return '💖';
+            if (percentage >= 65) return '💗';
+            return '💕';
+        }
+
         function startPrediction() {
             const fullName = document.getElementById('fullName').value.trim();
             const age = parseInt(document.getElementById('age').value);
 
-            // Validation
             if (!fullName) {
                 alert('Please enter your full name.');
                 return;
@@ -627,34 +800,48 @@
                 return;
             }
 
-            // Hide main card, show animation
             document.getElementById('mainCard').style.display = 'none';
             document.getElementById('predictionOverlay').classList.add('active');
             document.getElementById('predictBtn').disabled = true;
 
-            // After 3 seconds, show result
             setTimeout(() => {
                 showPrediction(fullName, age);
             }, 3000);
         }
 
         function showPrediction(fullName, age) {
-            // Hide animation overlay
             document.getElementById('predictionOverlay').classList.remove('active');
 
             const normalizedName = normalizeName(fullName);
             const isUnder21 = age < 21;
             
-            // Get partner initials based on name rules
             const partnerInitials = getPartnerInitials(fullName);
             
-            // Select prediction
+            // Generate compatibility row HTML for each initial
+            const compatibilityHTML = partnerInitials.map(letter => {
+                const percentage = getMatchPercentage(fullName, letter);
+                const isHighMatch = percentage >= 90;
+                const heart = getHeartEmoji(percentage);
+                
+                return `
+                    <div class="compatibility-item ${isHighMatch ? 'high-match' : ''}">
+                        <span class="compatibility-letter">${letter}</span>
+                        <div class="compatibility-bar-container">
+                            <div class="compatibility-bar-bg">
+                                <div class="compatibility-bar-fill ${isHighMatch ? 'high' : ''}" style="width: ${percentage}%"></div>
+                            </div>
+                        </div>
+                        <span class="compatibility-percent">${percentage}%</span>
+                        <span class="compatibility-heart">${heart}</span>
+                    </div>
+                `;
+            }).join('');
+            
             let prediction;
             let emoji;
             let title;
 
             if (isUnder21) {
-                // Under 21: 95% positive love prediction
                 const randomChance = Math.random();
                 if (randomChance < 0.05) {
                     prediction = "Young heart, be patient. Love will come when you least expect it, but first focus on knowing yourself completely. True love waits for those who are ready.";
@@ -671,20 +858,23 @@
                 title = "Your Soulmate Revealed!";
             }
 
-            // Special message for Rohit Roshan
             if (normalizedName === 'rohit roshan' || normalizedName === 'rohit roshan mohanty') {
                 prediction = "Rohit Roshan, the Supreme Emperor sees a love of extraordinary depth coming your way. Your partner will match your greatness and together you'll create an empire of love that inspires the world. The initials revealed are blessed by the heavens themselves. 💖👑";
                 emoji = "👑";
                 title = "A Love Fit for Royalty!";
             }
 
-            // Display partner initials
+            if (normalizedName === 'kalpana' || normalizedName === 's.kalpana' || normalizedName === 's kalpana') {
+                prediction = "Kalpana, the stars have aligned perfectly for your love life. A powerful connection with someone whose name begins with R awaits you. This bond will be transformative and deeply fulfilling. 💖✨";
+                emoji = "🌟";
+                title = "Destined Connection!";
+            }
+
             document.getElementById('partnerInitials').textContent = partnerInitials.join('  ');
+            document.getElementById('compatibilityRow').innerHTML = compatibilityHTML;
             
-            // Add name to prediction
             prediction = `${fullName}, ${prediction}`;
 
-            // Display result
             document.getElementById('resultEmoji').textContent = emoji;
             document.getElementById('resultTitle').textContent = title;
             document.getElementById('resultName').textContent = `✨ ${fullName} ✨`;
@@ -697,7 +887,6 @@
             document.getElementById('mainCard').style.display = 'block';
             document.getElementById('predictBtn').disabled = false;
             
-            // Clear inputs
             document.getElementById('fullName').value = '';
             document.getElementById('age').value = '';
         }

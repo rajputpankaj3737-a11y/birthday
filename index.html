@@ -1,315 +1,441 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
-    <title>🎉 Happy Birthday! 🎂</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+  <title>🎉 Happy Birthday! 🎂</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        body {
-            font-family: 'Inter', 'SF Pro Display', 'Segoe UI', system-ui, -apple-system, sans-serif;
-            min-height: 100vh;
-            background: radial-gradient(circle at 20% 30%, #ffd6e0, #f8bbd0 40%, #f48fb1 80%);
-            background-attachment: fixed;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 1.2rem;
-            margin: 0;
-            position: relative;
-            overflow-x: hidden;
-        }
+    body {
+      font-family: 'Inter', 'SF Pro Display', 'Segoe UI', system-ui, -apple-system, sans-serif;
+      min-height: 100vh;
+      background: radial-gradient(circle at 20% 30%, #ffd6e0, #f8bbd0 40%, #f48fb1 80%);
+      background-attachment: fixed;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.2rem;
+      margin: 0;
+      position: relative;
+      overflow-x: hidden;
+    }
 
-        /* modern abstract shapes in background */
-        body::before {
-            content: "";
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at 80% 15%, rgba(255, 220, 240, 0.5) 5%, transparent 40%),
-                        radial-gradient(circle at 10% 85%, rgba(255, 182, 193, 0.45) 8%, transparent 45%);
-            pointer-events: none;
-            z-index: 0;
-        }
+    /* modern abstract shapes in background */
+    body::before {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at 80% 15%, rgba(255, 220, 240, 0.5) 5%, transparent 40%),
+                  radial-gradient(circle at 10% 85%, rgba(255, 182, 193, 0.45) 8%, transparent 45%);
+      pointer-events: none;
+      z-index: 0;
+    }
 
-        /* elegant floating elements */
-        .decor {
-            position: absolute;
-            user-select: none;
-            pointer-events: none;
-            z-index: 1;
-            filter: drop-shadow(0 8px 12px rgba(0,0,0,0.08));
-        }
+    .decor {
+      position: absolute;
+      user-select: none;
+      pointer-events: none;
+      z-index: 1;
+      filter: drop-shadow(0 8px 12px rgba(0,0,0,0.08));
+    }
 
-        .shape1 {
-            top: 8%;
-            right: 8%;
-            font-size: 3.8rem;
-            animation: gentleFloat 5.5s infinite alternate ease-in-out;
-            opacity: 0.8;
-        }
+    .shape1 { top: 8%; right: 8%; font-size: 3.8rem; animation: gentleFloat 5.5s infinite alternate ease-in-out; opacity: 0.8; }
+    .shape2 { bottom: 12%; left: 6%; font-size: 3.2rem; animation: gentleFloat 6.2s infinite alternate-reverse ease-in-out; opacity: 0.7; }
+    .shape3 { top: 22%; left: 10%; font-size: 2.4rem; animation: spinSlow 7s infinite linear; opacity: 0.6; }
+    .shape4 { bottom: 18%; right: 12%; font-size: 2.8rem; animation: gentleFloat 4.8s infinite alternate ease-in-out; opacity: 0.75; }
+    .shape5 { top: 40%; right: 5%; font-size: 2rem; animation: pulse 3s infinite ease-in-out; opacity: 0.65; }
 
-        .shape2 {
-            bottom: 12%;
-            left: 6%;
-            font-size: 3.2rem;
-            animation: gentleFloat 6.2s infinite alternate-reverse ease-in-out;
-            opacity: 0.7;
-        }
+    @keyframes gentleFloat {
+      0% { transform: translateY(0px) rotate(0deg); }
+      100% { transform: translateY(-18px) rotate(5deg); }
+    }
+    @keyframes spinSlow {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    @keyframes pulse {
+      0% { transform: scale(1); opacity: 0.6; }
+      50% { transform: scale(1.15); opacity: 0.9; }
+      100% { transform: scale(1); opacity: 0.6; }
+    }
 
-        .shape3 {
-            top: 22%;
-            left: 10%;
-            font-size: 2.4rem;
-            animation: spinSlow 7s infinite linear;
-            opacity: 0.6;
-        }
+    .card {
+      background: rgba(255, 250, 252, 0.7);
+      backdrop-filter: blur(22px);
+      -webkit-backdrop-filter: blur(22px);
+      background: linear-gradient(145deg, rgba(255, 248, 250, 0.75) 0%, rgba(255, 235, 242, 0.8) 100%);
+      border-radius: 3.2rem;
+      padding: 2.8rem 2rem;
+      box-shadow: 0 30px 50px rgba(190, 70, 110, 0.25),
+                  0 10px 25px rgba(160, 50, 80, 0.2),
+                  inset 0 1px 10px rgba(255, 255, 255, 0.9);
+      text-align: center;
+      max-width: 420px;
+      width: 100%;
+      position: relative;
+      z-index: 10;
+      border: 1px solid rgba(255, 255, 255, 0.7);
+      transition: transform 0.25s ease, box-shadow 0.3s;
+      margin: 0 auto;
+    }
 
-        .shape4 {
-            bottom: 18%;
-            right: 12%;
-            font-size: 2.8rem;
-            animation: gentleFloat 4.8s infinite alternate ease-in-out;
-            opacity: 0.75;
-        }
+    .card:active {
+      transform: scale(0.98);
+    }
 
-        .shape5 {
-            top: 40%;
-            right: 5%;
-            font-size: 2rem;
-            animation: pulse 3s infinite ease-in-out;
-            opacity: 0.65;
-        }
+    .cake-icon {
+      font-size: 4.2rem;
+      display: block;
+      margin: 0 auto 0.5rem;
+      filter: drop-shadow(0 10px 12px rgba(200, 100, 120, 0.4));
+      animation: softBounce 2s infinite alternate;
+    }
 
-        @keyframes gentleFloat {
-            0% {
-                transform: translateY(0px) rotate(0deg);
-            }
-            100% {
-                transform: translateY(-18px) rotate(5deg);
-            }
-        }
+    @keyframes softBounce {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-10px); }
+    }
 
-        @keyframes spinSlow {
-            0% {
-                transform: rotate(0deg);
-            }
-            100% {
-                transform: rotate(360deg);
-            }
-        }
+    h1 {
+      font-size: 2.9rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #c43a5e, #9e2a4a);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: -0.5px;
+      margin-bottom: 0.6rem;
+      line-height: 1.2;
+      text-shadow: 0 2px 5px rgba(255, 220, 230, 0.6);
+    }
 
-        @keyframes pulse {
-            0% {
-                transform: scale(1);
-                opacity: 0.6;
-            }
-            50% {
-                transform: scale(1.15);
-                opacity: 0.9;
-            }
-            100% {
-                transform: scale(1);
-                opacity: 0.6;
-            }
-        }
+    .subhead {
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: #773d4c;
+      background: rgba(255, 235, 242, 0.7);
+      backdrop-filter: blur(5px);
+      padding: 0.5rem 1.4rem;
+      border-radius: 3rem;
+      display: inline-block;
+      margin: 0.8rem 0 1.4rem;
+      letter-spacing: 0.3px;
+      border: 1px solid rgba(255, 255, 255, 0.8);
+    }
 
-        /* main card – glassmorphism modern style */
-        .card {
-            background: rgba(255, 250, 252, 0.7);
-            backdrop-filter: blur(22px);
-            -webkit-backdrop-filter: blur(22px);
-            background: linear-gradient(145deg, rgba(255, 248, 250, 0.75) 0%, rgba(255, 235, 242, 0.8) 100%);
-            border-radius: 3.2rem;
-            padding: 2.8rem 2rem;
-            box-shadow: 0 30px 50px rgba(190, 70, 110, 0.25),
-                        0 10px 25px rgba(160, 50, 80, 0.2),
-                        inset 0 1px 10px rgba(255, 255, 255, 0.9);
-            text-align: center;
-            max-width: 420px;
-            width: 100%;
-            position: relative;
-            z-index: 10;
-            border: 1px solid rgba(255, 255, 255, 0.7);
-            transition: transform 0.25s ease, box-shadow 0.3s;
-            margin: 0 auto;
-        }
+    .message {
+      font-size: 1rem;
+      color: #5a3341;
+      margin: 1.2rem 0 1.8rem;
+      line-height: 1.7;
+      background: rgba(255, 245, 248, 0.6);
+      backdrop-filter: blur(6px);
+      padding: 0.9rem 1.2rem;
+      border-radius: 2.2rem;
+      font-weight: 450;
+    }
 
-        .card:active {
-            transform: scale(0.98);
-        }
+    .gift-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      background: linear-gradient(125deg, #e8436e 0%, #c72c5a 100%);
+      border: none;
+      color: white;
+      font-weight: 650;
+      font-size: 1.4rem;
+      padding: 1rem 2.2rem;
+      border-radius: 4rem;
+      text-decoration: none;
+      box-shadow: 0 15px 25px -8px rgba(210, 40, 80, 0.5), 0 4px 10px rgba(0,0,0,0.08);
+      letter-spacing: 0.4px;
+      transition: all 0.25s ease;
+      backdrop-filter: blur(5px);
+      border: 1px solid rgba(255, 200, 210, 0.8);
+      margin: 0.4rem 0 0.2rem;
+      width: fit-content;
+      margin-left: auto;
+      margin-right: auto;
+      min-height: 55px;
+    }
 
-        /* modern typography */
-        .cake-icon {
-            font-size: 4.2rem;
-            display: block;
-            margin: 0 auto 0.5rem;
-            filter: drop-shadow(0 10px 12px rgba(200, 100, 120, 0.4));
-            animation: softBounce 2s infinite alternate;
-        }
+    .gift-link:hover {
+      background: linear-gradient(125deg, #f5567c, #db3a64);
+      box-shadow: 0 18px 28px -6px rgba(200, 30, 70, 0.6);
+      transform: translateY(-3px);
+    }
 
-        @keyframes softBounce {
-            0% {
-                transform: translateY(0);
-            }
-            100% {
-                transform: translateY(-10px);
-            }
-        }
+    .gift-link:active {
+      transform: scale(0.96);
+      box-shadow: 0 6px 12px rgba(180, 30, 60, 0.5);
+    }
 
-        h1 {
-            font-size: 2.9rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, #c43a5e, #9e2a4a);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            letter-spacing: -0.5px;
-            margin-bottom: 0.6rem;
-            line-height: 1.2;
-            text-shadow: 0 2px 5px rgba(255, 220, 230, 0.6);
-        }
+    .gift-emoji {
+      font-size: 1.8rem;
+      filter: drop-shadow(0 3px 3px rgba(0,0,0,0.15));
+    }
 
-        .subhead {
-            font-size: 1.1rem;
-            font-weight: 500;
-            color: #773d4c;
-            background: rgba(255, 235, 242, 0.7);
-            backdrop-filter: blur(5px);
-            padding: 0.5rem 1.4rem;
-            border-radius: 3rem;
-            display: inline-block;
-            margin: 0.8rem 0 1.4rem;
-            letter-spacing: 0.3px;
-            border: 1px solid rgba(255, 255, 255, 0.8);
-        }
+    .footer-note {
+      margin-top: 1.5rem;
+      font-size: 0.85rem;
+      color: #8f5b69;
+      opacity: 0.85;
+      font-weight: 400;
+      letter-spacing: 0.3px;
+    }
 
-        .message {
-            font-size: 1rem;
-            color: #5a3341;
-            margin: 1.2rem 0 1.8rem;
-            line-height: 1.7;
-            background: rgba(255, 245, 248, 0.6);
-            backdrop-filter: blur(6px);
-            padding: 0.9rem 1.2rem;
-            border-radius: 2.2rem;
-            font-weight: 450;
-        }
+    /* Oracle button styling */
+    .oracle-trigger {
+      background: rgba(255, 245, 250, 0.7);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 220, 230, 0.9);
+      color: #a13052;
+      font-weight: 550;
+      font-size: 1rem;
+      padding: 0.7rem 1.8rem;
+      border-radius: 3rem;
+      margin-top: 1rem;
+      margin-bottom: 0.2rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: 0 8px 14px rgba(170, 60, 90, 0.15);
+      letter-spacing: 0.3px;
+      background: linear-gradient(105deg, rgba(255, 240, 245, 0.8) 0%, rgba(255, 225, 235, 0.8) 100%);
+    }
 
-        /* modern button – sleek and tappable */
-        .gift-link {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.6rem;
-            background: linear-gradient(125deg, #e8436e 0%, #c72c5a 100%);
-            border: none;
-            color: white;
-            font-weight: 650;
-            font-size: 1.4rem;
-            padding: 1rem 2.2rem;
-            border-radius: 4rem;
-            text-decoration: none;
-            box-shadow: 0 15px 25px -8px rgba(210, 40, 80, 0.5), 0 4px 10px rgba(0,0,0,0.08);
-            letter-spacing: 0.4px;
-            transition: all 0.25s ease;
-            backdrop-filter: blur(5px);
-            border: 1px solid rgba(255, 200, 210, 0.8);
-            margin: 0.4rem 0 0.2rem;
-            width: fit-content;
-            margin-left: auto;
-            margin-right: auto;
-        }
+    .oracle-trigger:hover {
+      background: rgba(255, 235, 242, 0.9);
+      box-shadow: 0 10px 18px rgba(160, 50, 80, 0.25);
+      transform: translateY(-2px);
+    }
 
-        .gift-link:hover {
-            background: linear-gradient(125deg, #f5567c, #db3a64);
-            box-shadow: 0 18px 28px -6px rgba(200, 30, 70, 0.6);
-            transform: translateY(-3px);
-        }
+    /* Floating notice (oracle message) */
+    .oracle-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      visibility: hidden;
+      opacity: 0;
+      transition: visibility 0.2s, opacity 0.25s ease;
+      padding: 1.5rem;
+    }
 
-        .gift-link:active {
-            transform: scale(0.96);
-            box-shadow: 0 6px 12px rgba(180, 30, 60, 0.5);
-        }
+    .oracle-overlay.active {
+      visibility: visible;
+      opacity: 1;
+    }
 
-        .gift-emoji {
-            font-size: 1.8rem;
-            filter: drop-shadow(0 3px 3px rgba(0,0,0,0.15));
-        }
+    .oracle-card {
+      background: rgba(255, 248, 250, 0.9);
+      backdrop-filter: blur(28px);
+      -webkit-backdrop-filter: blur(28px);
+      background: linear-gradient(160deg, rgba(255, 245, 248, 0.95) 0%, rgba(255, 230, 240, 0.95) 100%);
+      border-radius: 2.8rem;
+      padding: 2.2rem 1.8rem;
+      max-width: 380px;
+      width: 100%;
+      box-shadow: 0 35px 55px rgba(140, 30, 60, 0.35), 0 0 0 1px rgba(255, 255, 255, 0.8);
+      text-align: center;
+      transform: scale(0.92);
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      position: relative;
+    }
 
-        .footer-note {
-            margin-top: 1.5rem;
-            font-size: 0.85rem;
-            color: #8f5b69;
-            opacity: 0.85;
-            font-weight: 400;
-            letter-spacing: 0.3px;
-        }
+    .oracle-overlay.active .oracle-card {
+      transform: scale(1);
+    }
 
-        /* mobile optimization */
-        @media (max-width: 420px) {
-            .card {
-                padding: 2.2rem 1.4rem;
-                border-radius: 2.5rem;
-            }
-            h1 {
-                font-size: 2.4rem;
-            }
-            .cake-icon {
-                font-size: 3.5rem;
-            }
-            .gift-link {
-                font-size: 1.3rem;
-                padding: 0.9rem 1.8rem;
-            }
-            .shape1 {
-                font-size: 3rem;
-            }
-        }
+    .oracle-title {
+      font-size: 1.8rem;
+      font-weight: 650;
+      background: linear-gradient(135deg, #b34162, #862e47);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+    }
 
-        /* ensure touch targets are comfortable */
-        .gift-link {
-            min-height: 55px;
-        }
-    </style>
+    .oracle-text {
+      background: rgba(255, 240, 245, 0.8);
+      padding: 1.2rem;
+      border-radius: 2rem;
+      font-size: 0.98rem;
+      line-height: 1.65;
+      color: #3e2c33;
+      margin: 1.2rem 0;
+      font-weight: 430;
+      backdrop-filter: blur(5px);
+      border: 1px solid rgba(255, 255, 255, 0.7);
+      word-break: break-word;
+    }
+
+    .close-oracle {
+      background: none;
+      border: none;
+      font-size: 2rem;
+      position: absolute;
+      top: 0.8rem;
+      right: 1.2rem;
+      cursor: pointer;
+      color: #9e5b6e;
+      transition: 0.2s;
+      line-height: 1;
+      background: rgba(255, 255, 255, 0.6);
+      border-radius: 50%;
+      width: 2.5rem;
+      height: 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(4px);
+    }
+
+    .close-oracle:hover {
+      background: rgba(255, 220, 230, 0.9);
+      color: #7a2e46;
+    }
+
+    .oracle-btn-close {
+      margin-top: 0.8rem;
+      background: rgba(200, 70, 100, 0.15);
+      border: 1px solid rgba(200, 80, 110, 0.5);
+      padding: 0.6rem 1.8rem;
+      border-radius: 3rem;
+      font-weight: 550;
+      color: #a13052;
+      backdrop-filter: blur(5px);
+      cursor: pointer;
+      transition: 0.2s;
+      background: rgba(255, 235, 240, 0.8);
+    }
+
+    .oracle-btn-close:hover {
+      background: rgba(230, 120, 140, 0.25);
+    }
+
+    @media (max-width: 420px) {
+      .card { padding: 2.2rem 1.4rem; border-radius: 2.5rem; }
+      h1 { font-size: 2.4rem; }
+      .cake-icon { font-size: 3.5rem; }
+      .gift-link { font-size: 1.3rem; padding: 0.9rem 1.8rem; }
+      .oracle-card { padding: 2rem 1.4rem; }
+    }
+  </style>
 </head>
 <body>
-    <!-- Modern decorative elements -->
-    <div class="decor shape1">✨</div>
-    <div class="decor shape2">🎈</div>
-    <div class="decor shape3">🌸</div>
-    <div class="decor shape4">🎀</div>
-    <div class="decor shape5">🧁</div>
+  <div class="decor shape1">✨</div>
+  <div class="decor shape2">🎈</div>
+  <div class="decor shape3">🌸</div>
+  <div class="decor shape4">🎀</div>
+  <div class="decor shape5">🧁</div>
 
-    <main class="card">
-        <span class="cake-icon" aria-hidden="true">🎂</span>
-        
-        <h1>Happy Birthday!</h1>
-        
-        <div class="subhead">
-            ✦ celebrate in style ✦
-        </div>
-        
-        <p class="message">
-            Hope your day is as wonderful<br>
-            and radiant as you are.<br>
-            Here's to laughter, love, and<br>
-            unforgettable moments.
-        </p>
+  <main class="card">
+    <span class="cake-icon" aria-hidden="true">🎂</span>
+    <h1>Happy Birthday!</h1>
+    <div class="subhead">✦ celebrate in style ✦</div>
+    <p class="message">
+      Hope your day is as wonderful<br>
+      and radiant as you are.<br>
+      Here's to laughter, love, and<br>
+      unforgettable moments.
+    </p>
 
-        <!-- Button directs to gift.html – no JavaScript function attached -->
-        <a href="gift.html" class="gift-link" aria-label="Collect your birthday gift">
-            <span class="gift-emoji">🎁</span> Collect Gift <span class="gift-emoji">🎁</span>
-        </a>
-        
-        <div class="footer-note">
-            tap to reveal your surprise
-        </div>
-    </main>
+    <a href="gift.html" class="gift-link" aria-label="Collect your birthday gift">
+      <span class="gift-emoji">🎁</span> Collect Gift <span class="gift-emoji">🎁</span>
+    </a>
+
+    <!-- New Oracle Notice Button -->
+    <button class="oracle-trigger" id="openOracleBtn">
+      <span>🔮</span> Celestial Notice <span>✨</span>
+    </button>
+    
+    <div class="footer-note">tap to reveal your surprise</div>
+  </main>
+
+  <!-- Floating Oracle Notice (hidden by default) -->
+  <div class="oracle-overlay" id="oracleOverlay">
+    <div class="oracle-card">
+      <button class="close-oracle" id="closeOracleTop" aria-label="Close notice">&times;</button>
+      <div class="oracle-title">
+        <span>🌌</span> Supreme Emperor <span>🌠</span>
+      </div>
+      <div class="oracle-text">
+        Greeting destined one, I am the supreme emperor of heaven. Before ascending to heaven I create this. If you check your future in your birthday, then you will see your destiny. If it'd not your birthday, there is no need to worry about your future. I am predict your feature with your name and birth date that direct to your fate star. This universe is vast. I wish this prediction must not be your future. Every one have the right to fight with destiny. So, cherish your life and enjoy what you have.........
+      </div>
+      <button class="oracle-btn-close" id="closeOracleBtn">✨ Close & Reflect ✨</button>
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      const overlay = document.getElementById('oracleOverlay');
+      const openBtn = document.getElementById('openOracleBtn');
+      const closeTopBtn = document.getElementById('closeOracleTop');
+      const closeBottomBtn = document.getElementById('closeOracleBtn');
+
+      function openOracle() {
+        if (overlay) {
+          overlay.classList.add('active');
+        }
+      }
+
+      function closeOracle() {
+        if (overlay) {
+          overlay.classList.remove('active');
+        }
+      }
+
+      if (openBtn) {
+        openBtn.addEventListener('click', openOracle);
+      }
+
+      if (closeTopBtn) {
+        closeTopBtn.addEventListener('click', closeOracle);
+      }
+
+      if (closeBottomBtn) {
+        closeBottomBtn.addEventListener('click', closeOracle);
+      }
+
+      // Close when clicking overlay background (but not card)
+      if (overlay) {
+        overlay.addEventListener('click', function(e) {
+          if (e.target === overlay) {
+            closeOracle();
+          }
+        });
+      }
+
+      // Optional: close with Escape key
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && overlay && overlay.classList.contains('active')) {
+          closeOracle();
+        }
+      });
+    })();
+  </script>
 </body>
 </html>
